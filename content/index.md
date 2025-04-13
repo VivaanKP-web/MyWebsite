@@ -1,5 +1,5 @@
 ---
 layout: home.njk
 ---
-## Lorem Ipsum Home page Title
-Lorem ipsum odor amet, consectetuer adipiscing elit. Mollis duis quisque pellentesque inceptos, quam vulputate facilisis. Ullamcorper lacinia volutpat primis porttitor feugiat eget erat sem? Aliquet proin sit congue mauris; senectus facilisi. Fringilla commodo faucibus rutrum tristique, senectus hac primis. Faucibus consectetur laoreet aptent pulvinar ultricies in. Dui malesuada nisl lorem aenean vehicula commodo. Dis lacus facilisis pulvinar ante dis per parturient curabitur.
+## Welcome to Vivaan Krishna Ponugoti's Website
+Vivaan is a daily learner who wants to absorb many skill sets and a wide variety of knowledge, while also specializing skills in certain topics. Enjoys and participates enthusiastically in discourse of all ranges of topics. Enjoys leading and teaching through setting the example, creating foundations, and teaching all he has to offer.
