@@ -96,6 +96,17 @@ export default async function(eleventyConfig) {
 		return new CleanCSS({}).minify(code).styles;
 	});
 
+	// Add proper MIME types for Unity WebGL files
+	eleventyConfig.setServerOptions({
+		showAllHosts: true,
+		encoding: "utf8",
+		mimeTypes: {
+			"application/wasm": ["wasm"],
+			"application/javascript": ["framework.js", "loader.js"],
+			"application/octet-stream": ["data", "unityweb"]
+		}
+	});
+
 	// Features to make your build faster (when you need them)
 
 	// If your passthrough copy gets heavy and cumbersome, add this line
