@@ -1,40 +1,60 @@
 /* Defaults */
 :root {
-	--font-family: -apple-system, system-ui, sans-serif;
-	--font-family-monospace: Consolas, Menlo, Monaco, Andale Mono WT, Andale Mono, Lucida Console, Lucida Sans Typewriter, DejaVu Sans Mono, Bitstream Vera Sans Mono, Liberation Mono, Nimbus Mono L, Courier New, Courier, monospace;
-}
-
-/* Theme colors */
-:root {
-	--color-gray-20: #e0e0e0;
-	--color-gray-50: #C0C0C0;
-	--color-gray-90: #333;
-
-	--background-color: #fff;
-
-	--text-color: var(--color-gray-90);
-	--text-color-link: #082840;
-	--text-color-link-active: #5f2b48;
-	--text-color-link-visited: #1b0637;
-
-	--syntax-tab-size: 2;
+    --font-family: "Arial", -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+    --font-family-monospace: Consolas, Menlo, Monaco, "Liberation Mono", "Courier New", monospace;
+    
+    /* Base Colors */
+    --color-primary: #0085A1;
+    --color-secondary: #6c757d;
+    --color-success: #28a745;
+    --color-warning: #ffc107;
+    --color-danger: #dc3545;
+    
+    /* Gray Scale */
+    --color-gray-20: #e9ecef;
+    --color-gray-50: #adb5bd;
+    --color-gray-90: #212529;
+    
+    /* Theme Colors */
+    --background-color: #fff;
+    --text-color: var(--color-gray-90);
+    --text-color-light: #495057;
+    --text-color-link: #0056b3;
+    --text-color-link-active: #004085;
+    --text-color-link-visited: #0033a0;
+    
+    /* Spacing */
+    --spacing-unit: 0.5rem;
+    --spacing-xs: calc(var(--spacing-unit) * 0.5);
+    --spacing-sm: var(--spacing-unit);
+    --spacing-md: calc(var(--spacing-unit) * 2);
+    --spacing-lg: calc(var(--spacing-unit) * 3);
+    --spacing-xl: calc(var(--spacing-unit) * 4);
+    
+    /* Other */
+    --syntax-tab-size: 2;
+    --border-radius: 0.25rem;
+    --transition-speed: 0.2s;
 }
 
 @media (prefers-color-scheme: dark) {
-	:root {
-		--color-gray-20: #e0e0e0;
-		--color-gray-50: #C0C0C0;
-		--color-gray-90: #dad8d8;
-
-		/* --text-color is assigned to --color-gray-_ above */
-		--text-color-link: #1493fb;
-		--text-color-link-active: #6969f7;
-		--text-color-link-visited: #a6a6f8;
-
-		--background-color: #003264;
-	}
+    :root {
+        --color-gray-20: #495057;
+        --color-gray-50: #adb5bd;
+        --color-gray-90: #f8f9fa;
+        
+        --background-color: #1a1a1a;
+        --text-color: var(--color-gray-90);
+        --text-color-light: #e9ecef;
+        --text-color-link: #51a9ff;
+        --text-color-link-active: #79bcff;
+        --text-color-link-visited: #b3d7ff;
+        
+        /* Adjust other colors for dark mode */
+        --color-primary: #51a9ff;
+        --color-secondary: #9da6af;
+    }
 }
-
 
 /* Global stylesheet */
 * {

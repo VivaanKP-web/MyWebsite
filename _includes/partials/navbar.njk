@@ -1,24 +1,105 @@
-<style>
-  .navbar a {
-    color: #f8f9fa; /* Light white for better contrast */
-    text-decoration: none;
-  }
-
-  .navbar a:hover {
-    color: #ffc107; /* Highlight color on hover */
-    text-decoration: none;
-  }
-</style>
-
-<nav class="navbar minimal-navbar">
-  <div class="container">
-    <a class="navbar-brand" href="/">Vivaan Krishna Ponugoti</a>
-    <ul class="navbar-links" style="display: flex; gap: 1rem;">
-      <div><a href="/about">About Me</a></div>
-      <div><a href="/social">Resume</a></div>
-      <div><a href="/contact">Contact</a></div>
-      <div><a href="/blog">Blog</a></div>
-      <div><a href="/youtube">YouTube</a></div>
-    </ul>
-  </div>
+<nav class="navbar navbar-expand-lg navbar-dark fixed-top" id="mainNav">
+    <div class="container px-4 px-lg-5">
+        <a class="navbar-brand" href="/">Vivaan Krishna Ponugoti</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" 
+                aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ms-auto py-4 py-lg-0">
+                <li class="nav-item">
+                    <a class="nav-link px-lg-3 py-3 py-lg-4" href="/about">About Me</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link px-lg-3 py-3 py-lg-4" href="/social">Resume</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link px-lg-3 py-3 py-lg-4" href="/contact">Contact</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link px-lg-3 py-3 py-lg-4" href="/blog">Blog</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link px-lg-3 py-3 py-lg-4" href="/youtube">YouTube</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link px-lg-3 py-3 py-lg-4" href="/gallery">Art Gallery</a>
+                </li>
+            </ul>
+        </div>
+    </div>
 </nav>
+
+<style>
+#mainNav {
+    --bs-navbar-padding-x: var(--spacing-md);
+    --bs-navbar-padding-y: var(--spacing-sm);
+    --bs-navbar-color: rgba(255, 255, 255, 0.8);
+    --bs-navbar-hover-color: #fff;
+    --bs-navbar-disabled-color: rgba(255, 255, 255, 0.4);
+    --bs-navbar-active-color: #fff;
+    background-color: rgba(0, 0, 0, 0.9);
+    transition: background-color 0.3s ease-in-out;
+}
+
+#mainNav .navbar-brand {
+    font-weight: 700;
+    color: var(--bs-navbar-color);
+}
+
+#mainNav .navbar-brand:hover {
+    color: var(--bs-navbar-hover-color);
+}
+
+#mainNav .navbar-nav > li.nav-item > a.nav-link {
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    position: relative;
+}
+
+#mainNav .navbar-nav > li.nav-item > a.nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background-color: var(--bs-navbar-hover-color);
+    transition: all 0.3s ease;
+    transform: translateX(-50%);
+}
+
+#mainNav .navbar-nav > li.nav-item > a.nav-link:hover::after {
+    width: 80%;
+}
+
+@media (max-width: 991.98px) {
+    #mainNav .navbar-nav > li.nav-item > a.nav-link {
+        padding: 0.75rem 0;
+    }
+    #mainNav .navbar-nav > li.nav-item > a.nav-link::after {
+        display: none;
+    }
+}
+
+@media (min-width: 992px) {
+    #mainNav {
+        background: transparent;
+    }
+    #mainNav.is-fixed {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        background-color: rgba(0, 0, 0, 0.9);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #mainNav,
+    #mainNav .navbar-nav > li.nav-item > a.nav-link::after {
+        transition: none;
+    }
+}
+</style>

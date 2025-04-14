@@ -6,15 +6,4 @@ link: "https://spoke.news/package-golden-symphony"
 ---
 A detailed look into the Golden Symphony package, showcasing its features and the impact it has had on the community.
 
-[Read the full article here](https://spoke.news/package-golden-symphony).
-
-```diff-js
- // this is a command
- function myCommand() {
-+  let counter = 0;
--  let counter = 1;
-   counter++;
- }
-
- // Test with a line break above this line.
- console.log('Test');
+Read the full article here (https://spoke.news/package-golden-symphony).

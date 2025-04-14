@@ -1,27 +1,104 @@
 <div class="my-5">
-<form action="https://formspree.io/f/{{metadata.formspree_id}}" method="POST">
-<div class="form-floating">
-<input class="form-control" id="name" name="name" type="text" placeholder="Enter your name..." required />
-<label for="name">Name</label>
-<div class="invalid-feedback" data-sb-feedback="name:required">A name is required.</div>
-</div>
-<div class="form-floating">
-<input class="form-control" id="email" type="email"  name="email" placeholder="Enter your email..." required />
-<label for="phone">Email Address</label>
-<div class="invalid-feedback" data-sb-feedback="email:required">A email address is required.</div>
-</div>
-<div class="form-floating">
-<textarea class="form-control" name="message" id="message" placeholder="Enter your message here..." style="height: 12rem" data-sb-validations="required"></textarea>
-<label for="message">Message</label>
-<div class="invalid-feedback" data-sb-feedback="message:required">A message is required.</div>
-</div>
-<br />
-<div class="d-none" id="submitSuccessMessage">
-<div class="text-center mb-3">
-<h3>Thanks for your message !!</h3>
-</div>
-</div>
-<div class="d-none" id="submitErrorMessage"><div class="text-center text-danger mb-3">Error sending message!</div></div>
-<button class="btn btn-primary text-uppercase disabled" id="submitButton" type="submit">Send</button>
+<form class="contact-form needs-validation" id="contactForm" novalidate>
+    <div class="form-floating mb-3">
+        <input class="form-control" id="name" type="text" name="name" 
+               placeholder="Enter your name..." required 
+               pattern="[A-Za-z\s]+" minlength="2"
+               aria-describedby="nameHelp">
+        <label for="name">Name</label>
+        <div class="invalid-feedback" role="alert">Please enter a valid name.</div>
+        <small id="nameHelp" class="form-text text-muted">Enter your full name</small>
+    </div>
+    
+    <div class="form-floating mb-3">
+        <input class="form-control" id="email" type="email" name="email" 
+               placeholder="Enter your email..." required
+               pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$"
+               aria-describedby="emailHelp">
+        <label for="email">Email address</label>
+        <div class="invalid-feedback" role="alert">Please enter a valid email address.</div>
+        <small id="emailHelp" class="form-text text-muted">We'll never share your email</small>
+    </div>
+    
+    <div class="form-floating mb-3">
+        <textarea class="form-control" id="message" name="message" 
+                  style="height: 12rem" placeholder="Enter your message..."
+                  required minlength="10" aria-describedby="messageHelp"></textarea>
+        <label for="message">Message</label>
+        <div class="invalid-feedback" role="alert">Please enter a message (at least 10 characters).</div>
+        <small id="messageHelp" class="form-text text-muted">What would you like to tell us?</small>
+    </div>
+    
+    <div class="d-grid">
+        <button class="btn btn-primary" id="submitButton" type="submit">
+            <span class="button-text">Send Message</span>
+            <span class="spinner-border spinner-border-sm d-none" role="status" aria-hidden="true"></span>
+        </button>
+    </div>
+    
+    <div class="form-response mt-3 d-none" role="alert" aria-live="polite"></div>
 </form>
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const form = document.getElementById('contactForm');
+    const submitButton = document.getElementById('submitButton');
+    const spinner = submitButton.querySelector('.spinner-border');
+    const buttonText = submitButton.querySelector('.button-text');
+    const formResponse = document.querySelector('.form-response');
+    
+    function setLoading(isLoading) {
+        submitButton.disabled = isLoading;
+        spinner.classList.toggle('d-none', !isLoading);
+        buttonText.textContent = isLoading ? 'Sending...' : 'Send Message';
+    }
+    
+    function showResponse(message, isError = false) {
+        formResponse.textContent = message;
+        formResponse.classList.remove('d-none', 'alert-success', 'alert-danger');
+        formResponse.classList.add(isError ? 'alert-danger' : 'alert-success');
+    }
+    
+    form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        
+        if (!form.checkValidity()) {
+            e.stopPropagation();
+            form.classList.add('was-validated');
+            return;
+        }
+        
+        setLoading(true);
+        
+        const formData = new FormData(form);
+        try {
+            const response = await fetch('/.netlify/functions/contact', {
+                method: 'POST',
+                body: JSON.stringify(Object.fromEntries(formData)),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+            
+            if (!response.ok) throw new Error('Network response was not ok');
+            
+            showResponse('Thank you! Your message has been sent.');
+            form.reset();
+            form.classList.remove('was-validated');
+        } catch (error) {
+            console.error('Error:', error);
+            showResponse('Sorry, there was an error sending your message. Please try again.', true);
+        } finally {
+            setLoading(false);
+        }
+    });
+    
+    // Reset form state when inputs change
+    form.addEventListener('input', () => {
+        if (form.classList.contains('was-validated')) {
+            formResponse.classList.add('d-none');
+        }
+    });
+});
+</script>
 </div>

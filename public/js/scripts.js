@@ -7,23 +7,49 @@ window.addEventListener('DOMContentLoaded', () => {
     let scrollPos = 0;
     const mainNav = document.getElementById('mainNav');
     const headerHeight = mainNav.clientHeight;
+    const navbarToggler = mainNav.querySelector('.navbar-toggler');
+    const navbarResponsive = document.getElementById('navbarResponsive');
+    
+    // Handle scroll events
     window.addEventListener('scroll', function() {
-        const currentTop = document.body.getBoundingClientRect().top * -1;
-        if ( currentTop < scrollPos) {
-            // Scrolling Up
+        const currentTop = window.scrollY;
+		
+        // Check if user is scrolling up
+        if (currentTop < scrollPos) {
+            // Scrolling up
             if (currentTop > 0 && mainNav.classList.contains('is-fixed')) {
                 mainNav.classList.add('is-visible');
             } else {
-                console.log(123);
                 mainNav.classList.remove('is-visible', 'is-fixed');
             }
-        } else {
-            // Scrolling Down
-            mainNav.classList.remove(['is-visible']);
+        } else if (currentTop > scrollPos) {
+            // Scrolling down
+            mainNav.classList.remove('is-visible');
+            
             if (currentTop > headerHeight && !mainNav.classList.contains('is-fixed')) {
                 mainNav.classList.add('is-fixed');
             }
         }
         scrollPos = currentTop;
     });
-})
+
+    // Close responsive menu when clicking outside
+    document.addEventListener('click', (e) => {
+        const isNavbarOpen = navbarResponsive.classList.contains('show');
+        const clickedInsideNavbar = mainNav.contains(e.target);
+        
+        if (isNavbarOpen && !clickedInsideNavbar) {
+            navbarToggler.click();
+        }
+    });
+
+    // Close responsive menu when clicking a nav link (mobile)
+    const navLinks = mainNav.querySelectorAll('.nav-link');
+    navLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            if (window.innerWidth < 992 && navbarResponsive.classList.contains('show')) {
+                navbarToggler.click();
+            }
+        });
+    });
+});

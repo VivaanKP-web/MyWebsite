@@ -1,46 +1,157 @@
+<!-- Post preview section -->
+<section class="post-list" aria-label="Blog posts">
+    {% for post in postslist | reverse %}
+    <article class="post-preview" data-tags="{{ post.data.tags | join(',') }}">
+        <div class="post-meta">
+            <time class="post-date" datetime="{{ post.date | htmlDateString }}">
+                {{ post.date | readableDate }}
+            </time>
+            {% if post.data.tags %}
+            <div class="post-tags" aria-label="Post tags">
+                {% for tag in post.data.tags | filterTagList %}
+                <a href="/tags/{{ tag | slugify }}/" class="post-tag">{{ tag }}</a>
+                {% endfor %}
+            </div>
+            {% endif %}
+        </div>
+        
+        <a class="post-link" href="{{ post.url | url }}">
+            <h2 class="post-title h3">
+                {% if post.data.title %}
+                {{ post.data.title }}
+                {% else %}
+                <code>{{ post.url }}</code>
+                {% endif %}
+            </h2>
+            {% if post.data.description %}
+            <h3 class="post-subtitle h5">
+                {{ post.data.description }}
+            </h3>
+            {% endif %}
+        </a>
+        
+        {% if post.data.excerpt %}
+        <div class="post-excerpt">
+            {{ post.data.excerpt }}
+        </div>
+        {% endif %}
+        
+        <a href="{{ post.url | url }}" class="btn btn-primary read-more-link">
+            Read More 
+            <span class="visually-hidden">about {{ post.data.title }}</span>
+            <i class="fas fa-arrow-right ms-1" aria-hidden="true"></i>
+        </a>
+    </article>
+    {% endfor %}
+</section>
+
 <style>
-  .post-preview {
-    background-color: #212529;
-    padding: 1.5rem;
-    border-radius: 8px;
-    margin-bottom: 1.5rem;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
+.post-list {
+    display: grid;
+    gap: var(--spacing-lg, 2rem);
+    margin-bottom: var(--spacing-xl, 3rem);
+}
 
-  .post-preview:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
-  }
+.post-preview {
+    padding: var(--spacing-lg, 2rem);
+    background: var(--background-color);
+    border-radius: var(--border-radius);
+    box-shadow: 0 2px 4px rgba(0,0,0,0.04);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
 
-  .post-preview a {
-    color: #ffc107;
+@media (hover: hover) {
+    .post-preview:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0,0,0,0.08);
+    }
+}
+
+.post-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-sm, 0.5rem);
+    align-items: center;
+    margin-bottom: var(--spacing-sm, 0.5rem);
+    font-size: 0.875rem;
+    color: var(--text-color-light);
+}
+
+.post-date {
+    white-space: nowrap;
+}
+
+.post-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.post-tag {
+    padding: 0.25rem 0.5rem;
+    background: var(--color-gray-20);
+    border-radius: 2rem;
+    color: var(--text-color);
     text-decoration: none;
-  }
+    font-size: 0.75rem;
+    transition: background-color 0.2s ease;
+}
 
-  .post-preview a:hover {
-    color: #f8f9fa;
-    text-decoration: underline;
-  }
+.post-tag:hover {
+    background: var(--color-gray-50);
+    color: var(--text-color);
+}
 
-  .post-meta {
-    color: #adb5bd;
-    font-size: 0.9rem;
-  }
+.post-link {
+    display: block;
+    color: var(--text-color);
+    text-decoration: none;
+    margin-bottom: var(--spacing-md, 1rem);
+}
+
+.post-link:hover {
+    color: var(--color-primary);
+}
+
+.post-title {
+    margin: var(--spacing-sm, 0.5rem) 0;
+}
+
+.post-subtitle {
+    color: var(--text-color-light);
+    font-weight: 400;
+    margin-bottom: var(--spacing-md, 1rem);
+}
+
+.post-excerpt {
+    margin-bottom: var(--spacing-md, 1rem);
+    color: var(--text-color-light);
+}
+
+.read-more-link {
+    font-size: 0.875rem;
+    padding: 0.5rem 1rem;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .post-preview {
+        transition: none;
+    }
+    
+    .post-tag {
+        transition: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .post-preview {
+        padding: var(--spacing-md, 1rem);
+    }
+    
+    .post-meta {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+}
 </style>
-
-{% for s in postslist | reverse %}
-<div class="post-preview">
-  <a href="{{s.url}}">
-    <h2 class="post-title">{{s.data.title}}</h2>
-  </a>
-  {% if s.data.description %}
-    <h3 class="post-subtitle">{{s.data.description}}</h3>
-  {% endif %}
-  <p class="post-meta">
-    Posted by <a href="{{metadata.author.url}}">{{metadata.author.name}}</a>
-    on {{s.date| readableDate}}
-  </p>
-</div>
-<hr class="my-4" />
-{%- endfor -%}
 
